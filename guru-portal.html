@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GURU — AI Business Oracle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@200;300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════
+   FOUNDATIONS
+═══════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --black:   #000000;
+  --near:    #0A0A0A;
+  --dark:    #111111;
+  --mid:     #1C1C1E;
+  --surface: #2C2C2E;
+  --gold:    #D4A843;
+  --gold-hi: #F0C866;
+  --gold-lo: #8A6A22;
+  --white:   #F5F5F7;
+  --grey1:   #E8E8ED;
+  --grey2:   #AEAEB2;
+  --grey3:   #636366;
+  --ember:   #FF453A;
+  --green:   #30D158;
+  --r:       22px;
+  --transition: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   NAV — Apple-style frosted glass
+═══════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 52px;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  z-index: 999;
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--grey2);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-cta:hover { color: var(--gold-hi); }
+
+/* ═══════════════════════════════════════
+   HERO — Full bleed cinematic
+═══════════════════════════════════════ */
+.hero {
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 52px 24px 0;
+}
+
+/* Deep space background */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,168,67,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,168,67,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(212,168,67,0.05) 0%, transparent 50%);
+}
+
+/* Star field */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 45%, rgba(212,168,67,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 25% 30%, rgba(212,168,67,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 55%, rgba(212,168,67,0.5) 0%, transparent 100%);
+  animation: starfield 80s linear infinite;
+}
+
+@keyframes starfield {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 0.3s forwards;
+}
+
+.hero-headline {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(48px, 9vw, 96px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 0.5s forwards;
+}
+
+.hero-headline .accent {
+  background: linear-gradient(135deg, var(--gold-hi) 0%, var(--gold) 50%, var(--gold-lo) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub-headline {
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 200;
+  color: var(--grey2);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 0.65s forwards;
+}
+
+.hero-body {
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-weight: 300;
+  color: var(--grey3);
+  max-width: 520px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 0.8s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 0.95s forwards;
+}
+
+/* Apple-style pill buttons */
+.pill-btn {
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 980px;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s var(--transition);
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+.pill-primary {
+  background: var(--gold);
+  color: var(--black);
+}
+.pill-primary:hover {
+  background: var(--gold-hi);
+  transform: scale(1.02);
+}
+
+.pill-secondary {
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  border: 0.5px solid rgba(255,255,255,0.2);
+}
+.pill-secondary:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.02);
+}
+
+.pill-ghost {
+  background: transparent;
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.pill-ghost:hover { color: var(--gold-hi); }
+.pill-ghost::after { content: '›'; font-size: 18px; }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeInUp 0.8s var(--transition) 1.4s forwards;
+}
+
+.scroll-mouse {
+  width: 20px; height: 32px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scroll-wheel {
+  width: 3px; height: 6px;
+  background: var(--gold);
+  border-radius: 2px;
+  animation: scroll-anim 2s ease-in-out infinite;
+}
+
+@keyframes scroll-anim {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   TICKER — Apple-style product bar
+═══════════════════════════════════════ */
+.ticker {
+  background: var(--near);
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-inner {
+  display: inline-flex;
+  gap: 0;
+  animation: ticker-scroll 40s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 32px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--grey3);
+  text-transform: uppercase;
+}
+
+.ticker-sep {
+  width: 3px; height: 3px;
+  background: var(--gold-lo);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   SECTION ARCHITECTURE — Apple grid
+═══════════════════════════════════════ */
+.section-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Divider line */
+.divider {
+  height: 0.5px;
+  background: rgba(255,255,255,0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section intro (centered) */
+.section-intro {
+  text-align: center;
+  padding: 100px 24px 60px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-h2 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.section-h2 .dim { color: var(--grey3); }
+
+.section-p {
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 300;
+  color: var(--grey2);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════
+   FEATURE CARDS — Apple grid cards
+═══════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.card {
+  background: var(--near);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover { background: #141414; }
+.card:hover::before { opacity: 1; }
+
+.card-icon {
+  font-size: 36px;
+  margin-bottom: 24px;
+  display: block;
+  filter: saturate(0.8);
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.card-body {
+  font-size: 14px;
+  color: var(--grey3);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-stat {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-stat::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--gold);
+}
+
+/* ═══════════════════════════════════════
+   FULL-BLEED FEATURE — Apple hero product
+═══════════════════════════════════════ */
+.feature-full {
+  background: var(--near);
+  padding: 100px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-full .bg-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(212,168,67,0.1) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+.feature-full .section-tag { margin-bottom: 16px; }
+
+.feature-full-h {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--white);
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+
+.feature-full-sub {
+  font-size: clamp(15px, 1.8vw, 21px);
+  font-weight: 300;
+  color: var(--grey2);
+  max-width: 580px;
+  margin: 0 auto 48px;
+  line-height: 1.5;
+}
+
+/* Oracle visual */
+.oracle-visual {
+  width: 320px; height: 320px;
+  margin: 0 auto 60px;
+  position: relative;
+}
+
+.oracle-ring {
+  position: absolute;
+  border: 0.5px solid rgba(212,168,67,0.25);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.ring-1 { width: 320px; height: 320px; animation: spin 25s linear infinite; }
+.ring-2 { width: 240px; height: 240px; animation: spin 18s linear infinite reverse; }
+.ring-3 { width: 160px; height: 160px; border-color: rgba(212,168,67,0.4); animation: spin 12s linear infinite; }
+
+.oracle-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--gold);
+}
+
+.d1 { top: 0; left: 50%; transform: translate(-50%,-50%); }
+.d2 { top: 50%; right: 0; transform: translate(50%,-50%); }
+.d3 { bottom: 0; left: 50%; transform: translate(-50%,50%); }
+
+.oracle-core {
+  position: absolute;
+  width: 100px; height: 100px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(212,168,67,0.15) 0%, transparent 70%);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.oracle-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@keyframes spin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+  border-right: 0.5px solid rgba(255,255,255,0.08);
+}
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-num .unit {
+  font-size: 0.5em;
+  font-weight: 300;
+  color: var(--gold);
+  vertical-align: super;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--grey3);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════
+   INDUSTRIES — Horizontal scroll
+═══════════════════════════════════════ */
+.industry-scroll {
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+.industry-row {
+  display: flex;
+  gap: 16px;
+  padding: 0 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.industry-row::-webkit-scrollbar { display: none; }
+
+.ind-card {
+  min-width: 260px;
+  background: var(--near);
+  border-radius: 18px;
+  padding: 32px 28px;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  transition: all 0.35s var(--transition);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ind-card:hover {
+  border-color: rgba(212,168,67,0.4);
+  transform: translateY(-4px);
+  background: #141414;
+}
+
+.ind-emoji {
+  font-size: 32px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ind-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.ind-pain {
+  font-size: 13px;
+  color: var(--ember);
+  margin-bottom: 14px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.ind-fix {
+  font-size: 13px;
+  color: var(--grey3);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.ind-result {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ind-result::before {
+  content: '↑';
+  font-size: 14px;
+}
+
+/* ═══════════════════════════════════════
+   TWO-PATH VISION — Apple compare style
+═══════════════════════════════════════ */
+.vision-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.path-card {
+  padding: 64px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.path-without {
+  background: var(--near);
+}
+
+.path-with {
+  background: linear-gradient(135deg, #1A1500 0%, #0F0A00 100%);
+  border: 0.5px solid rgba(212,168,67,0.2);
+}
+
+.path-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label-without { color: var(--grey3); }
+.label-with { color: var(--gold); }
+
+.label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.label-dot.without { background: var(--grey3); }
+.label-dot.with { background: var(--gold); }
+
+.path-title {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.path-without .path-title { color: var(--grey2); }
+.path-with .path-title { color: var(--white); }
+
+.path-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.timeline-year {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--grey3);
+  min-width: 48px;
+  padding-top: 2px;
+  font-family: 'Space Mono', monospace;
+}
+
+.path-with .timeline-year { color: var(--gold-lo); }
+
+.timeline-content {
+  font-size: 14px;
+  color: var(--grey3);
+  line-height: 1.5;
+}
+
+.path-with .timeline-content { color: var(--grey2); }
+
+.timeline-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.timeline-dot.without { background: rgba(255,255,255,0.1); }
+.timeline-dot.with { background: var(--gold); box-shadow: 0 0 8px rgba(212,168,67,0.5); }
+
+/* ═══════════════════════════════════════
+   CHAT EXPERIENCE — Apple product display
+═══════════════════════════════════════ */
+.chat-experience {
+  background: var(--near);
+  padding: 100px 24px;
+}
+
+.chat-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: start;
+}
+
+.chat-copy { padding-top: 20px; }
+
+.chat-window-apple {
+  background: var(--mid);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  box-shadow:
+    0 0 0 0.5px rgba(0,0,0,0.5),
+    0 32px 80px rgba(0,0,0,0.5),
+    0 0 60px rgba(212,168,67,0.06);
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cw-header {
+  background: rgba(255,255,255,0.04);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cw-avatar {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lo) 100%);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.cw-info { flex: 1; }
+
+.cw-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.cw-status {
+  font-size: 11px;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cw-status-dot {
+  width: 5px; height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.cw-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: none;
+}
+.cw-messages::-webkit-scrollbar { display: none; }
+
+.msg {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: msgIn 0.3s var(--transition) forwards;
+  opacity: 0;
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: scale(0.95) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.msg-aria {
+  background: var(--surface);
+  color: var(--white);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+.msg-user {
+  background: var(--gold);
+  color: var(--black);
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+  font-weight: 400;
+}
+
+.typing-ind {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.typing-dot {
+  width: 6px; height: 6px;
+  background: var(--grey3);
+  border-radius: 50%;
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+  0%,60%,100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+.cw-input-bar {
+  padding: 12px 16px;
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cw-input {
+  flex: 1;
+  background: var(--surface);
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  border-radius: 22px;
+  font-size: 14px;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+}
+.cw-input::placeholder { color: var(--grey3); }
+
+.cw-send {
+  width: 34px; height: 34px;
+  background: var(--gold);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.cw-send:hover { background: var(--gold-hi); transform: scale(1.05); }
+
+/* ═══════════════════════════════════════
+   PRICING — Apple store style
+═══════════════════════════════════════ */
+.pricing-wrap {
+  padding: 100px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.price-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 60px;
+}
+
+.pc {
+  background: var(--near);
+  border-radius: 18px;
+  padding: 40px 32px;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s;
+}
+.pc:hover { border-color: rgba(212,168,67,0.3); }
+
+.pc.featured {
+  background: linear-gradient(135deg, #1C1400 0%, #120E00 100%);
+  border-color: rgba(212,168,67,0.4);
+  position: relative;
+}
+
+.pc-badge {
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 0 0 10px 10px;
+}
+
+.pc-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pc-desc {
+  font-size: 13px;
+  color: var(--grey3);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.pc-price {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.pc-price .sym {
+  font-size: 24px;
+  vertical-align: super;
+  font-weight: 300;
+}
+
+.pc-period {
+  font-size: 13px;
+  color: var(--grey3);
+  margin-bottom: 32px;
+}
+
+.pc-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  margin-bottom: 32px;
+}
+
+.pc-features li {
+  font-size: 14px;
+  color: var(--grey2);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.pc-features li::before {
+  content: '✓';
+  color: var(--gold);
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ═══════════════════════════════════════
+   FINAL CTA — Apple-style full bleed
+═══════════════════════════════════════ */
+.final-cta {
+  text-align: center;
+  padding: 120px 24px;
+  position: relative;
+  overflow: hidden;
+  background: var(--near);
+}
+
+.final-cta .bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(212,168,67,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.final-cta-h {
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--white);
+  max-width: 700px;
+  margin: 0 auto 24px;
+}
+
+.final-cta-sub {
+  font-size: clamp(15px, 1.8vw, 19px);
+  color: var(--grey2);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER — Apple footer
+═══════════════════════════════════════ */
+footer {
+  border-top: 0.5px solid rgba(255,255,255,0.1);
+  background: var(--near);
+}
+
+.footer-top {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col-links a {
+  font-size: 12px;
+  color: var(--grey3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-col-links a:hover { color: var(--grey1); }
+
+.footer-bottom {
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+  padding: 20px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--grey3);
+}
+
+.footer-brand-mark {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+/* WhatsApp button */
+.wa-fixed {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 998;
+}
+
+.wa-fixed a {
+  width: 56px; height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 0 0 0 rgba(37,211,102,0.35);
+  animation: wa-glow 3s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+.wa-fixed a:hover { transform: scale(1.1); }
+
+@keyframes wa-glow {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 0 0 0 rgba(37,211,102,0); }
+  50% { box-shadow: 0 4px 20px rgba(37,211,102,0.5), 0 0 0 12px rgba(37,211,102,0); }
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--transition), transform 0.7s var(--transition);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .vision-compare { grid-template-columns: 1fr; }
+  .chat-inner { grid-template-columns: 1fr; }
+  .price-cards { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: repeat(2,1fr); }
+  .stats-row { flex-direction: column; }
+  .stat-item { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  .path-card { padding: 48px 28px; }
+  section { padding: 60px 20px !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- WhatsApp Float -->
+<div class="wa-fixed">
+  <a href="https://wa.me/917995495312?text=Hi%20Aria" target="_blank" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">GURU</a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#vision">2036 Vision</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#demo">Live Demo</a></li>
+  </ul>
+  <a href="https://wa.me/917995495312?text=Hi%20Aria" class="nav-cta" target="_blank">Talk to Aria →</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="stars"></div>
+
+  <p class="hero-eyebrow">Introducing GURU — AI Business Oracle</p>
+
+  <h1 class="hero-headline">
+    Your Business,<br>
+    <span class="accent">Transformed.</span>
+  </h1>
+
+  <p class="hero-sub-headline">Built for 2036. Available today.</p>
+
+  <p class="hero-body">
+    One WhatsApp conversation. Seven intelligent questions. A complete AI transformation roadmap — with gap analysis, 10-year predictions, and systems built specifically for your business.
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://wa.me/917995495312?text=Hi%20Aria" class="pill-btn pill-primary" target="_blank">
+      Talk to Aria
+    </a>
+    <a href="#how" class="pill-btn pill-secondary">Learn more</a>
+    <a href="#demo" class="pill-ghost">See live demo</a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span class="ticker-sep"></span>Schools & Colleges</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Clinics & Hospitals</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Restaurants & Hotels</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Retail & Shops</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Real Estate Agents</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Coaching Centres</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Salons & Spas</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Schools & Colleges</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Clinics & Hospitals</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Restaurants & Hotels</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Retail & Shops</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Real Estate Agents</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Coaching Centres</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Salons & Spas</div>
+  </div>
+</div>
+
+<!-- ═══ WHAT IS GURU ═══ -->
+<div class="feature-full">
+  <div class="bg-glow"></div>
+  <div class="section-tag">What is GURU</div>
+  <h2 class="feature-full-h">The AI that thinks about<br>your business — so you don't have to.</h2>
+  <p class="feature-full-sub">
+    GURU is not a chatbot. It's an AI oracle that diagnoses your business, finds what's bleeding money, and predicts your next 10 years — then builds the systems to get you there.
+  </p>
+
+  <div class="oracle-visual">
+    <div class="oracle-ring ring-1">
+      <div class="oracle-dot d1"></div>
+      <div class="oracle-dot d2"></div>
+      <div class="oracle-dot d3"></div>
+    </div>
+    <div class="oracle-ring ring-2"></div>
+    <div class="oracle-ring ring-3"></div>
+    <div class="oracle-core">
+      <span class="oracle-letter">G</span>
+    </div>
+  </div>
+
+  <div class="stats-row reveal">
+    <div class="stat-item">
+      <div class="stat-num"><span class="unit">₹</span>3L<span style="font-size:0.4em;vertical-align:middle;color:var(--grey3)">+</span></div>
+      <div class="stat-label">Average monthly revenue<br>recovered per client</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Questions to generate your<br>complete AI growth plan</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5–7</div>
+      <div class="stat-label">Days to go live<br>with your AI system</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24<span style="font-size:0.5em;color:var(--grey3)">/7</span></div>
+      <div class="stat-label">Your AI works even when<br>your team doesn't</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<div class="divider"></div>
+<div class="section-intro reveal" id="how">
+  <div class="section-tag">The Process</div>
+  <h2 class="section-h2">From "Hi" to <span class="dim">your 10-year vision</span><br>in one conversation.</h2>
+  <p class="section-p">No forms. No consultants. No waiting. Just a WhatsApp conversation that changes how you see your business.</p>
+</div>
+
+<div class="cards-grid">
+  <div class="card reveal reveal-delay-1">
+    <span class="card-icon">💬</span>
+    <h3 class="card-title">Message Aria</h3>
+    <p class="card-body">Send "Hi" on WhatsApp. Aria opens with one question that shifts how you see your entire business — not "what do you sell?" but something deeper.</p>
+    <div class="card-stat">Takes 7 minutes total</div>
+  </div>
+  <div class="card reveal reveal-delay-2">
+    <span class="card-icon">🧠</span>
+    <h3 class="card-title">Deep Diagnosis</h3>
+    <p class="card-body">Seven intelligent questions — each answered with a live insight showing Aria is already thinking. This isn't data collection. It's consultancy.</p>
+    <div class="card-stat">Real-time analysis as you speak</div>
+  </div>
+  <div class="card reveal reveal-delay-3">
+    <span class="card-icon">📊</span>
+    <h3 class="card-title">Gap Revelation</h3>
+    <p class="card-body">Aria shows you exactly what your business is bleeding — in rupees — with benchmarks from similar businesses in your city and industry.</p>
+    <div class="card-stat">Quantified, not vague</div>
+  </div>
+  <div class="card reveal reveal-delay-1">
+    <span class="card-icon">🔭</span>
+    <h3 class="card-title">10-Year Vision</h3>
+    <p class="card-body">Two paths — with AI and without. Year by year. Real Indian business examples. You see exactly where you end up depending on the decision you make today.</p>
+    <div class="card-stat">2025 → 2035 roadmap</div>
+  </div>
+  <div class="card reveal reveal-delay-2">
+    <span class="card-icon">🛠️</span>
+    <h3 class="card-title">We Build It</h3>
+    <p class="card-body">Your custom AI system — WhatsApp bot, automation, prediction engines — built specifically for your business. Live in 5–7 working days.</p>
+    <div class="card-stat">No tech knowledge needed</div>
+  </div>
+  <div class="card reveal reveal-delay-3">
+    <span class="card-icon">📈</span>
+    <h3 class="card-title">Continuous Intelligence</h3>
+    <p class="card-body">Your AI learns your business over time. Every month it gets sharper — better predictions, smarter follow-ups, more revenue recovered.</p>
+    <div class="card-stat">Gets better every month</div>
+  </div>
+</div>
+
+<!-- ═══ INDUSTRIES ═══ -->
+<div class="divider"></div>
+<div class="section-intro reveal" id="industries">
+  <div class="section-tag">Industries</div>
+  <h2 class="section-h2">Every business. <span class="dim">Specific intelligence.</span></h2>
+  <p class="section-p">Generic AI is useless. GURU knows the exact gaps in your industry and builds solutions that fit.</p>
+</div>
+
+<div class="industry-scroll">
+  <div class="industry-row">
+
+    <div class="ind-card">
+      <span class="ind-emoji">🏫</span>
+      <div class="ind-name">Schools & Colleges</div>
+      <div class="ind-pain">"We lose 40% of admission enquiries after 6pm."</div>
+      <div class="ind-fix">24/7 admission bot · Parent emotion AI · Dropout early warning 8 weeks ahead · AI-written monthly student reports</div>
+      <div class="ind-result">₹3L+/month in recovered admissions</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">🏥</span>
+      <div class="ind-name">Clinics & Hospitals</div>
+      <div class="ind-pain">"35% no-show rate. No one follows up after appointments."</div>
+      <div class="ind-fix">Booking bot · No-show predictor · Post-visit care AI · Patient re-engagement engine · Review generation</div>
+      <div class="ind-result">₹1.5L+/month recovered revenue</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">🍽️</span>
+      <div class="ind-name">Restaurants</div>
+      <div class="ind-pain">"We pay Swiggy ₹80,000 commission every month."</div>
+      <div class="ind-fix">Direct WhatsApp ordering · Customer memory AI · Demand forecasting · Waste reduction · Zero-commission loyalty</div>
+      <div class="ind-result">₹40-80K/month saved in commission</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">🛒</span>
+      <div class="ind-name">Retail & Shops</div>
+      <div class="ind-pain">"I don't know who my top customers are."</div>
+      <div class="ind-fix">VIP customer intelligence · Smart restock alerts · Personalised festival offers · Lapsed customer re-engagement</div>
+      <div class="ind-result">30–40% increase in repeat purchases</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">🏠</span>
+      <div class="ind-name">Real Estate</div>
+      <div class="ind-pain">"Leads go cold before we follow up."</div>
+      <div class="ind-fix">90-second lead response · Buyer preference AI · Automated site visit scheduling · 60-day nurture sequences</div>
+      <div class="ind-result">3× more deals, same enquiries</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">🎓</span>
+      <div class="ind-name">Coaching Centres</div>
+      <div class="ind-pain">"Students leave and we only notice months later."</div>
+      <div class="ind-fix">Dropout prediction 8 weeks early · Demo booking bot · Personalised progress tracking · Fee automation</div>
+      <div class="ind-result">₹96K saved per retained student/year</div>
+    </div>
+
+    <div class="ind-card">
+      <span class="ind-emoji">💈</span>
+      <div class="ind-name">Salons & Spas</div>
+      <div class="ind-pain">"20% no-show rate kills our daily revenue."</div>
+      <div class="ind-fix">24/7 booking bot · Smart reminders · Upsell automation · Birthday offers · Re-booking engine</div>
+      <div class="ind-result">No-shows reduced by 60%</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ 2036 VISION ═══ -->
+<div class="divider"></div>
+<div class="section-intro reveal" id="vision">
+  <div class="section-tag">The Oracle's View</div>
+  <h2 class="section-h2">Two futures.<br><span class="dim">You choose.</span></h2>
+  <p class="section-p">Every business owner we speak to faces this fork in the road. The gap between Path A and Path B widens every single month.</p>
+</div>
+
+<div class="vision-compare">
+  <div class="path-card path-without reveal">
+    <div class="path-label label-without">
+      <div class="label-dot without"></div>
+      Path A — Without AI
+    </div>
+    <h3 class="path-title">The default future, if nothing changes.</h3>
+    <div class="path-timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot without"></div>
+        <div class="timeline-year">Y1–2</div>
+        <div class="timeline-content">Same processes, same limitations. Staff costs rise. You keep hiring people to do what software could do.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot without"></div>
+        <div class="timeline-year">Y3–5</div>
+        <div class="timeline-content">Competitors with AI systems capture customers who want instant response. You compete on price alone.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot without"></div>
+        <div class="timeline-year">Y5–10</div>
+        <div class="timeline-content">The businesses that built data intelligence in 2025 now own their market. Acquiring new customers costs 6× more than retaining would have.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-card path-with reveal reveal-delay-1">
+    <div class="path-label label-with">
+      <div class="label-dot with"></div>
+      Path B — With GURU
+    </div>
+    <h3 class="path-title">The compounding advantage that starts now.</h3>
+    <div class="path-timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot with"></div>
+        <div class="timeline-year">Y1</div>
+        <div class="timeline-content">AI handles 80% of routine tasks. 15–20 hours/week recovered. Revenue from previously lost leads begins compounding.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot with"></div>
+        <div class="timeline-year">Y2–3</div>
+        <div class="timeline-content">Customer data builds your competitive moat. Predictions get sharper. Retention improves. Word-of-mouth accelerates.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot with"></div>
+        <div class="timeline-year">Y5–10</div>
+        <div class="timeline-content">You are the most trusted, most responsive business in your market. Data justifies expansion. Your competitors are studying you.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LIVE CHAT DEMO ═══ -->
+<div class="divider"></div>
+<div class="chat-experience" id="demo">
+  <div class="chat-inner">
+    <div class="chat-copy">
+      <div class="section-tag">Live Demo</div>
+      <h2 class="section-h2" style="font-size: clamp(28px, 4vw, 44px);">Talk to Aria.<br><span class="dim">Right now.</span></h2>
+      <p class="section-p" style="font-size: 15px; margin: 20px 0;">
+        This isn't a recording. Type anything about your business and Aria responds with real intelligence — live, personalised, and immediate.
+      </p>
+      <p style="font-size: 13px; color: var(--grey3); margin-bottom: 32px; line-height: 1.6;">
+        No scripts. No pre-written responses. Every reply is generated by AI in real-time, based on exactly what you say.
+      </p>
+      <a href="https://wa.me/917995495312?text=Hi%20Aria" class="pill-btn pill-primary" target="_blank" style="display: inline-flex;">
+        Open full experience in WhatsApp
+      </a>
+    </div>
+
+    <div class="chat-window-apple">
+      <div class="cw-header">
+        <div class="cw-avatar">A</div>
+        <div class="cw-info">
+          <div class="cw-name">Aria · AI Business Oracle</div>
+          <div class="cw-status"><span class="cw-status-dot"></span>Online · GURU by Guru Biz Solutions</div>
+        </div>
+      </div>
+      <div class="cw-messages" id="cwMessages"></div>
+      <div class="cw-input-bar">
+        <input class="cw-input" id="cwInput" placeholder="Tell me about your business…" />
+        <button class="cw-send" id="cwSend">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRICING ═══ -->
+<div class="divider"></div>
+<div class="pricing-wrap" id="pricing">
+  <div class="section-intro" style="padding: 0 0 0 0; text-align: left; max-width: 100%;">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-h2">Simple pricing.<br><span class="dim">No surprises.</span></h2>
+    <p class="section-p" style="max-width: 500px; margin-top: 16px;">Most clients recover their monthly fee in the first week — from leads they were previously losing.</p>
+  </div>
+
+  <div class="price-cards">
+    <div class="pc reveal reveal-delay-1">
+      <div class="pc-name">Starter</div>
+      <div class="pc-desc">For businesses ready to automate their first touchpoint.</div>
+      <div class="pc-price"><span class="sym">₹</span>6,000</div>
+      <div class="pc-period">per month · No setup fee · Cancel anytime</div>
+      <ul class="pc-features">
+        <li>24/7 WhatsApp AI bot</li>
+        <li>FAQ & lead automation</li>
+        <li>Telugu / Hindi / English</li>
+        <li>Lead capture & follow-up</li>
+        <li>Monthly performance report</li>
+      </ul>
+      <a href="https://wa.me/917995495312?text=Hi,%20I'm%20interested%20in%20the%20Starter%20plan" class="pill-btn pill-secondary" target="_blank" style="justify-content: center;">Get started</a>
+    </div>
+
+    <div class="pc featured reveal reveal-delay-2">
+      <div class="pc-badge">Most Popular</div>
+      <div class="pc-name">Growth</div>
+      <div class="pc-desc">For businesses serious about AI-driven revenue growth.</div>
+      <div class="pc-price"><span class="sym">₹</span>15,000</div>
+      <div class="pc-period">per month · No setup fee · Cancel anytime</div>
+      <ul class="pc-features">
+        <li>Everything in Starter</li>
+        <li>Predictive AI (dropout, no-show, churn)</li>
+        <li>Customer memory & personalisation</li>
+        <li>Re-engagement automation</li>
+        <li>Business health dashboard</li>
+        <li>10-year growth tracking</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="https://wa.me/917995495312?text=Hi,%20I'm%20interested%20in%20the%20Growth%20plan" class="pill-btn pill-primary" target="_blank" style="justify-content: center;"><span>Get started</span></a>
+    </div>
+
+    <div class="pc reveal reveal-delay-3">
+      <div class="pc-name">Enterprise</div>
+      <div class="pc-desc">For schools, hospital groups, and multi-location businesses.</div>
+      <div class="pc-price" style="font-size: 36px; padding-top: 6px;">Custom</div>
+      <div class="pc-period">Tailored to your business · Includes setup</div>
+      <ul class="pc-features">
+        <li>Full AI transformation suite</li>
+        <li>Multi-location & multi-language</li>
+        <li>ERP & software integrations</li>
+        <li>Dedicated AI consultant</li>
+        <li>Staff training included</li>
+        <li>Custom SLA & support</li>
+      </ul>
+      <a href="https://wa.me/917995495312?text=Hi,%20I'm%20interested%20in%20Enterprise" class="pill-btn pill-secondary" target="_blank" style="justify-content: center;">Talk to us</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FINAL CTA ═══ -->
+<div class="divider"></div>
+<div class="final-cta">
+  <div class="bg"></div>
+  <div class="section-tag">Get Started</div>
+  <h2 class="final-cta-h">The best time to start<br>was two years ago.</h2>
+  <p class="final-cta-sub">The second best time is right now — while your competitors are still figuring this out.</p>
+  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://wa.me/917995495312?text=Hi%20Aria" class="pill-btn pill-primary" target="_blank">Talk to Aria →</a>
+    <a href="#demo" class="pill-btn pill-secondary">See live demo</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-mark">GURU</div>
+      <p style="font-size:12px; color: var(--grey3); margin-top: 12px; line-height: 1.6;">AI Business Transformation<br>Hyderabad, India · Est. 2025<br>Built for 2036.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <ul class="footer-col-links">
+        <li><a href="#">WhatsApp AI Bot</a></li>
+        <li><a href="#">Business Diagnosis</a></li>
+        <li><a href="#">10-Year Vision</a></li>
+        <li><a href="#">Custom Integrations</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Industries</div>
+      <ul class="footer-col-links">
+        <li><a href="#">Schools & Colleges</a></li>
+        <li><a href="#">Clinics & Hospitals</a></li>
+        <li><a href="#">Restaurants</a></li>
+        <li><a href="#">Retail & Real Estate</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-col-links">
+        <li><a href="https://wa.me/917995495312" target="_blank">WhatsApp: +91 79954 95312</a></li>
+        <li><a href="mailto:krisheluri11@gmail.com">krisheluri11@gmail.com</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">Copyright © 2025 Guru Biz Solutions. All rights reserved.</p>
+    <div class="footer-brand-mark" style="font-size:11px; opacity:0.5;">GURU</div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── CHAT DEMO ──────────────────────────────────────
+const cwMessages = document.getElementById('cwMessages');
+const cwInput = document.getElementById('cwInput');
+const cwSend = document.getElementById('cwSend');
+
+let chatHistory = [];
+
+function addMsg(role, text, delay = 0) {
+  setTimeout(() => {
+    const d = document.createElement('div');
+    d.className = `msg msg-${role}`;
+    d.innerHTML = text.replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>');
+    cwMessages.appendChild(d);
+    cwMessages.scrollTop = cwMessages.scrollHeight;
+  }, delay);
+}
+
+function showTyping() {
+  const d = document.createElement('div');
+  d.className = 'typing-ind';
+  d.id = 'cwTyping';
+  d.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  cwMessages.appendChild(d);
+  cwMessages.scrollTop = cwMessages.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('cwTyping');
+  if (t) t.remove();
+}
+
+// Opening message
+const opening = 'Before we talk about your business —\n\n*What problem in the world does it actually solve?*\n\nNot what you sell. The real problem your customer can\'t sleep over.';
+setTimeout(() => {
+  addMsg('aria', opening);
+  chatHistory.push({ role: 'assistant', content: opening });
+}, 800);
+
+async function sendChat() {
+  const text = cwInput.value.trim();
+  if (!text) return;
+  cwInput.value = '';
+
+  addMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 250,
+        system: 'You are Aria, the AI Business Oracle for GURU by Guru Biz Solutions, Hyderabad. You are in a short website demo chat. Be concise (2-3 sentences max), warm, and ask one powerful follow-up question that makes the business owner think differently. Use *asterisks* for emphasis. Focus on their real business pain.',
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Tell me more — I want to understand your business fully before I show you anything.';
+    removeTyping();
+    addMsg('aria', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    removeTyping();
+    addMsg('aria', 'For the full experience, message me on WhatsApp — I\'ll give you a complete analysis in just 7 questions.');
+  }
+}
+
+cwSend.addEventListener('click', sendChat);
+cwInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+
+// ── SMOOTH SCROLL ──────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const t = document.querySelector(href);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ── NAV ACTIVE STATE ───────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 10) {
+    nav.style.background = 'rgba(0,0,0,0.85)';
+  } else {
+    nav.style.background = 'rgba(0,0,0,0.72)';
+  }
+});
+</script>
+</body>
+</html>
